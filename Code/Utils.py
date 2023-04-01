@@ -19,11 +19,19 @@ class Data:
         lenOfWords = lenOfWords.T
         lenOfWords.columns = ['eng','sp']
         print(lenOfWords.describe())
-
     def preprocessing(self):
         spanish = self.data['sp']
         eng = self.data['eng']
         spanish = '[Start] ' + spanish+ ' [End]'
+        corpusLen = 15
+    @staticmethod
+    def customStd(txt):
+        puncs = string.punctuation
+        puncs = puncs.replace(']','')
+        puncs = puncs.replace('[','')    
+        txt = tf.strings.lower(txt)
+        return tf.strings.regex_replace(txt, f"[{re.escape(puncs)}]", "")
+
 data = Data(r"C:\Users\alifa\Documents\AI\robotech\transformers\docs\w4\nmt example\nmt example\spa.txt")
 data.loadData()
 data.dataProperties()
