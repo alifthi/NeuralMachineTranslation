@@ -9,4 +9,6 @@ class Data:
         self.data = pd.read_csv(self.path,sep='\t')
         self.data.columns = ['eng','sp']
     def preprocessing(self):
-        pass
+        spanish = self.data['sp']
+        eng = self.data['eng']
+        spanish = '[Start] ' + spanish+ ' [End]'
