@@ -23,7 +23,19 @@ class Data:
         spanish = self.data['sp']
         eng = self.data['eng']
         spanish = '[Start] ' + spanish+ ' [End]'
-        corpusLen = 15
+        engCorpusLen = 47
+        spCourpusLen = 49 + 2
+        engVocabSize = 1000
+        spVocabSize = 1500
+        spanishTokenizer = tf.keras.layers.TextVectorization(max_tokens= spVocabSize,
+                                                             output_sequence_length=spCourpusLen,
+                                                             standardize=self.customStd)
+        englishTokenizer = tf.keras.layers.TextVectorization(output_sequence_length=engCorpusLen,
+                                                             max_tokens=engVocabSize,
+                                                             standardize=self.customStd)
+        englishTokenizer.adapt(eng)
+        spanishTokenizer.adapt(spanish)
+        return [englishTokenizer,spanishTokenizer]
     @staticmethod
     def customStd(txt):
         puncs = string.punctuation
