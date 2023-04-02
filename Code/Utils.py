@@ -50,9 +50,3 @@ class Data:
         puncs = puncs.replace('[','')    
         txt = tf.strings.lower(txt)
         return tf.strings.regex_replace(txt, f"[{re.escape(puncs)}]", "")
-
-data = Data(r"C:\Users\alifa\Documents\AI\robotech\transformers\docs\w4\nmt example\nmt example\spa.txt")
-data.loadData()
-data.dataProperties()
-spanihsCorpus,englishCorpus = data.preprocessing()
-engVector,spInpVector,spOutVector =  data.vectorization(spanihsCorpus,englishCorpus)
