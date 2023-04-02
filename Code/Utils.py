@@ -27,15 +27,22 @@ class Data:
         spCourpusLen = 49 + 2
         engVocabSize = 1000
         spVocabSize = 1500
-        spanishTokenizer = tf.keras.layers.TextVectorization(max_tokens= spVocabSize,
+        self.spanishTokenizer = tf.keras.layers.TextVectorization(max_tokens= spVocabSize,
                                                              output_sequence_length=spCourpusLen,
                                                              standardize=self.customStd)
-        englishTokenizer = tf.keras.layers.TextVectorization(output_sequence_length=engCorpusLen,
+        self.englishTokenizer = tf.keras.layers.TextVectorization(output_sequence_length=engCorpusLen,
                                                              max_tokens=engVocabSize,
                                                              standardize=self.customStd)
-        englishTokenizer.adapt(eng)
-        spanishTokenizer.adapt(spanish)
-        return [englishTokenizer,spanishTokenizer]
+        self.englishTokenizer.adapt(eng)
+        self.spanishTokenizer.adapt(spanish)
+        return [spanish,eng]
+    def vectorization(self,spanishDS,englishDS):
+        spanishDSInput = [corp[:-5] for corp in spanishDS]
+        spanishDSOutput = [corp[7:] for corp in spanishDS]
+        englishVectors = self.englishTokenizer(englishDS)
+        spanishVectorsInputs = self.spanishTokenizer(spanishDSInput)
+        spanishVectorsOutput = self.spanishTokenizer(spanishDSOutput)
+        return [englishVectors,spanishVectorsInputs,spanishVectorsOutput]
     @staticmethod
     def customStd(txt):
         puncs = string.punctuation
@@ -47,5 +54,5 @@ class Data:
 data = Data(r"C:\Users\alifa\Documents\AI\robotech\transformers\docs\w4\nmt example\nmt example\spa.txt")
 data.loadData()
 data.dataProperties()
-data.preprocessing()
-           
+spanihsCorpus,englishCorpus = data.preprocessing()
+engVector,spInpVector,spOutVector =  data.vectorization(spanihsCorpus,englishCorpus)
