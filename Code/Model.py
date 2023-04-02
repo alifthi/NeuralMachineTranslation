@@ -13,6 +13,8 @@ class Model:
         x = ksl.GRU(64)(x,initial_state = [engGru])
         x = ksl.Dense(self.numSpanishTokens,'softmax')(x)
         self.net = tf.keras.Model(inputs = [engInp,spInp],outputs = x)
+    def compileModel(self):
+        pass
 model = Model(100,150)
 model.buildModel()
 
