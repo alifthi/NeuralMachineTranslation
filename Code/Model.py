@@ -19,7 +19,3 @@ class Model:
             optimizer=Adam,
             loss="sparse_categorical_crossentropy",
             metrics=["accuracy"])
-model = Model(100,150)
-model.buildModel()
-model.compileModel()
-        
