@@ -12,4 +12,4 @@ engVector,spInpVector,spOutVector =  data.vectorization(spanihsCorpus,englishCor
 model = Model(numEnglishTokens=engVocabSize,numSpanishTokens=spVocabSize)
 model.buildModel()
 model.compileModel()
-
+model.trainModel([engVector,spInpVector,spOutVector])
