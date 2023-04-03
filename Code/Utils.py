@@ -19,14 +19,12 @@ class Data:
         lenOfWords = lenOfWords.T
         lenOfWords.columns = ['eng','sp']
         print(lenOfWords.describe())
-    def preprocessing(self):
+    def preprocessing(self,engVocabSize = 1000,spVocabSize = 1500):
         spanish = self.data['sp']
         eng = self.data['eng']
         spanish = '[Start] ' + spanish+ ' [End]'
         engCorpusLen = 47
         spCourpusLen = 49 + 2
-        engVocabSize = 1000
-        spVocabSize = 1500
         self.spanishTokenizer = tf.keras.layers.TextVectorization(max_tokens= spVocabSize,
                                                              output_sequence_length=spCourpusLen,
                                                              standardize=self.customStd)
