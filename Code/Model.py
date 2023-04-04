@@ -14,7 +14,8 @@ class Model:
         x = ksl.TimeDistributed(ksl.Dense(self.numSpanishTokens,'softmax'))(x)
         self.net = tf.keras.Model(inputs = [engInp,spInp],outputs = x)
     def compileModel(self):
-        Adam = tf.keras.optimizers.Adam(learning_rate=0.001)
+        schedular = tf.optimizers.schedules.PolynomialDecay(initial_learning_rate= 0.1,decay_steps=0.01)
+        Adam = tf.keras.optimizers.Adam(learning_rate=schedular)
         self.net.compile(
             optimizer=Adam,
             loss="sparse_categorical_crossentropy",
