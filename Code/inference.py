@@ -17,7 +17,6 @@ decoderOutput,Hstate,Cstate = model.layers[5](decoderEmbedding,initial_state =[d
 
 decoderDense = model.layers[6](decoderOutput)
 decoderModel = tf.keras.Model([decoderInput,decoderCState,decoderHState],decoderDense)
-
 def inference(inputSentence,vectorizer):
     inputVector = vectorizer(inputSentence)
     state = encoderModel.predict(inputVector)
